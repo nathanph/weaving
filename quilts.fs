@@ -33,7 +33,6 @@ module JQuilts
            let isEmpty list = List.forall (fun element -> element = []) list
            if isEmpty quilt1 && isEmpty quilt2
            then []
-           //else List.zip quilt1 quilt2
            else
                (quilt1.Head @ quilt2.Head) :: (sew quilt1.Tail quilt2.Tail)
 
@@ -43,23 +42,35 @@ module JQuilts
            | SE -> SW
            | SW -> NW
            | NW -> NE
-//
+
        let turnSquare sq =
            let texture = fst sq
            let direction = snd sq
            (texture, clockwise direction)
-//
-//       let rec turn quilt =
-//
-//       let unturn quilt =
-//
-//       (* Do this like it would be sewn, so can only use sewing functions
-//          like sew, pile, turn, etc. *)
-//       let rec pile quilt1 quilt2 =
-//
-//       (* An efficient one-statement way to combine the lists of tuples
-//          to achieve a pile. *)
-//       let rec effpile quilt1 quilt2 =
+
+       let rec turn quilt =
+           let isEmpty list = List.forall (fun element -> element = []) list
+           if isEmpty quilt
+           then []
+           else
+               let squares = List.map List.head quilt
+               let revSquares = List.rev squares
+               let turned = List.map turnSquare revSquares
+               turned :: turn (List.map List.tail quilt)
+
+
+       let unturn quilt =
+           turn (turn (turn quilt))
+
+       (* Do this like it would be sewn, so can only use sewing functions
+          like sew, pile, turn, etc. *)
+       let rec pile quilt1 quilt2 =
+           turn (sew (unturn quilt1) (unturn quilt2))
+
+       (* An efficient one-statement way to combine the lists of tuples
+          to achieve a pile. *)
+       let rec effpile quilt1 quilt2 =
+           quilt1 @ quilt2
 
 
 
