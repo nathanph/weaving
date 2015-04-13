@@ -136,30 +136,44 @@ module JQuilts
      *******                                             *********
      *******    Puts it all together!                    *********
      ************************************************************)
-//    module Testing =
-//       open Sewing
-//       open Graphics
-//
-//       (* Example testing as shown in textbook *)
-//       let slice =
-//          let aa = pile (unturn arcsNE) (turn arcsNE)
-//          let bb = pile bandsNE (turn (turn bandsNE))
-//          let q = sew aa bb
-//          pile q q
-//       let page47quilt = sew slice (sew slice slice)
-//
-//       let makePage47quilt =
-//          createQuiltImage  page47quilt "p47quilt.jpg";;
+    module Testing =
+       open Sewing
+       open Graphics
 
+       (* Example testing as shown in textbook *)
+       let slice =
+          let aa = pile (unturn arcsNE) (turn arcsNE)
+          let bb = pile bandsNE (turn (turn bandsNE))
+          let q = sew aa bb
+          pile q q
+       let page47quilt = sew slice (sew slice slice)
 
+       let makePage47quilt =
+          createQuiltImage  page47quilt "p47quilt.jpg"
 
-       (* Student testing code to make a 2x12 "runner" quilt, save
+       (* Problem 4.20: Student testing code to make a 2x12 "runner" quilt, save
           in "runner.jpg" file. *)
+       let runnerSlice=
+          let aa = pile (unturn arcsNE) (turn arcsNE)
+          let bb = pile bandsNE (turn (turn bandsNE))
+          sew (sew aa bb) (sew aa bb)
+       let quilt420 = sew runnerSlice (sew runnerSlice runnerSlice)
 
-
-
+       let yoloswag420 =
+          createQuiltImage quilt420 "runner.jpg"
 
        (* Student testing code to make a 30 square quilt, save
           in "squares30.jpg" file. *)
+       let largeSlice =
+          let aa = pile (unturn arcsNE) (turn arcsNE)
+          let bb = pile bandsNE (turn (turn bandsNE))
+          let aaaa = pile aa aa
+          let bbbb = pile bb bb
+          let aaaaa = pile aaaa (unturn arcsNE)
+          let bbbbb = pile bbbb bandsNE
+          sew aaaaa bbbbb
+       let largeQuilt = sew largeSlice (sew largeSlice largeSlice)
 
+       let makeLargeQuilt =
+          createQuiltImage largeQuilt "squares30.jpg";;
 
